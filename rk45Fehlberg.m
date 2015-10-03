@@ -57,7 +57,7 @@ function [yn] = rk45Fehlberg(f, t, dt, y, Ain, fin)
             for j = 1:i
                 aF = aF + a(i, j)*F(j, k);
             end
-            Y(i, k) = y(k)+(dt*aF);
+            Y(i, k) = y(k)+dt*aF;
         end
         % evaluate ode at current stage s_i
         F(i, :) = dt * feval ( f, t, Y(i, :), Ain, fin);
@@ -71,23 +71,17 @@ function [yn] = rk45Fehlberg(f, t, dt, y, Ain, fin)
         for j=1:sn
             aF = aF +a(7,j)*F(j, k);
         end
-        y4(k) = y(k)+ dt*aF;  
-    end
-    
-    
-     % sum up terms to build 5th order scheme
-    for k=1:N
-    	aF= 0.0;
-        for j=1:sn
-            aF = aF +b(j)*F(j, k);
-        end
         yn(k) = y(k)+ dt*aF;  
     end
     
     
-    % use difference between 4th and 5th order schemes to adjust the time
-    % step
-    for k = 1:N
-        
-    end
+%      % sum up terms to build 5th order scheme
+%     for k=1:N
+%     	aF= 0.0;
+%         for j=1:sn
+%             aF = aF +b(j)*F(j, k);
+%         end
+%         yn(k) = y(k)+ dt*aF;  
+%     end
+    
 end

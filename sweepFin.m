@@ -1,13 +1,14 @@
-y0 = [-65, 0.1, 0.1, 0.1];
+clear all
+y0 = [-70, 0.1, 0.1, 0.1];
 T = 3000;
-dt = 0.05;
+dt = 0.025;
 Nt = floor(T/dt);
 t = linspace(0, T, Nt);
 lastCycle = floor((T-1000)/dt);
 
 
 fin = 0.1:0.05:10;
-Ain=1;
+Ain=0;
 % run simulation with no current
 state = simulate(T, dt, y0, Ain, 0.1);
 
@@ -22,7 +23,7 @@ subplot(4, 1, 1);     plot([T-750 T-750],[-80 -20], '--k', 'LineWidth', 3)
 for i = 1:length(fin)
     subplot(4, 1, 1); hold on
     state = simulate(T, dt, state(end, :), Ain, fin(i));
-    plot(t, state(:, 1));
+    plot(state(:, 1));
 %     xlim([T-1000 T])
     
     % measure impedance amplitude and phase and plot

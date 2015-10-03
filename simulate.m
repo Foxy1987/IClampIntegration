@@ -9,14 +9,20 @@ function state = simulate(T, dt, y0, Ain, fin)
     for i = 1:Nt
         t = i*dt;
         yn = rk2(@simple_ica_ih_model2, t, dt, y0, Ain, fin);
-        %yn = rk45Fehlberg(@simple_ica_ih_model2, t, dt, y0, Ain, fin);
+%         yn = rk45Fehlberg(@simple_ica_ih_model2, t, dt, y0, Ain, fin);
         y0 = yn;
-
+        
         state(i, :) = y0; 
     end
+    
+%     options = odeset('RelTol',1e-4,'AbsTol',[1e-5 1e-5 1e-5 1e-5]);
+%     [T2,Y] = ode23(@(t, y) simple_ica_ih_model2(t, y, Ain, fin), [0 T], y0, options);
+%     figure; plot(T2, Y(:, 1))
+%     state = Y;
 end
 
 
+% 
 % adaptive step size runge-kutta embedded fehlberg
 % 
 % function state = simulate(T, dt, y0, Ain, fin)
